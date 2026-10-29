@@ -1,18 +1,20 @@
-import { Fraunces, Inter } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const serif = Fraunces({ subsets: ["latin"], variable: "--font-serif", display: "swap" });
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata = {
-  title: "Prince Sant | Data Science & Sustainability",
+  title: "Prince Sant | Data Scientist",
   description:
-    "Portfolio of Prince Sant, Consultant with the Clean Air team at CEEW, working on air quality, geospatial analysis and machine learning for sustainability.",
+    "Prince Sant: data scientist building machine learning and geospatial models for air quality and climate at CEEW.",
 };
+
+export const viewport = { themeColor: "#05080d" };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

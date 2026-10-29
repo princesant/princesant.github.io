@@ -1,17 +1,23 @@
 import Nav from "../components/Nav";
 import Photo from "../components/Photo";
+import NetworkBg from "../components/NetworkBg";
+import Typer from "../components/Typer";
+import Reveal from "../components/Reveal";
+import Counter from "../components/Counter";
 import {
   profile, about, stats, experience, projects, skills, education, certifications, leadership,
 } from "../content";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-function Section({ id, label, title, children }) {
+function Section({ id, n, title, children }) {
   return (
     <section id={id} className="section">
       <div className="container">
-        <p className="eyebrow">{label}</p>
-        <h2>{title}</h2>
+        <h2 className="section-title reveal">
+          <span className="accent">0{n}.</span> {title}
+          <span className="rule" />
+        </h2>
         {children}
       </div>
     </section>
@@ -21,104 +27,142 @@ function Section({ id, label, title, children }) {
 export default function Home() {
   return (
     <>
-      <Nav name={profile.name} />
+      <div className="grid-bg" aria-hidden="true" />
+      <Nav />
+      <Reveal />
       <main id="top">
         {/* Hero */}
         <section className="hero">
+          <NetworkBg />
           <div className="container hero-grid">
-            <div>
-              <p className="eyebrow">{profile.role} · CEEW</p>
-              <h1>{profile.name}</h1>
+            <div className="hero-text">
+              <p className="kicker">
+                <span className="dot" /> system.online · {profile.location}
+              </p>
+              <h1 className="glitch" data-text={profile.name}>{profile.name}</h1>
+              <p className="hero-role">
+                <span className="accent">&gt;</span> <Typer words={profile.roles} />
+              </p>
               <p className="lead">{profile.tagline}</p>
               <div className="actions">
-                <a className="btn btn-primary" href={base + profile.cv} download>Download CV</a>
-                <a className="btn" href="#contact">Get in touch</a>
+                <a className="btn btn-primary" href={base + profile.cv} download>
+                  ./download_cv.pdf
+                </a>
+                <a className="btn" href="#contact">ping --me</a>
               </div>
               <ul className="hero-links">
-                <li><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></li>
-                <li><a href={profile.ceew} target="_blank" rel="noreferrer">CEEW profile ↗</a></li>
+                <li><a href={profile.linkedin} target="_blank" rel="noreferrer">[ linkedin ]</a></li>
+                <li><a href={profile.ceew} target="_blank" rel="noreferrer">[ ceew ]</a></li>
               </ul>
             </div>
-            <Photo src={base + profile.photo} name={profile.name} />
+            <div className="hud">
+              <span className="hud-corner tl" /><span className="hud-corner tr" />
+              <span className="hud-corner bl" /><span className="hud-corner br" />
+              <Photo src={base + profile.photo} name={profile.name} />
+              <div className="scanline" aria-hidden="true" />
+              <div className="hud-label">
+                <span>ID: P.SANT</span><span className="accent">● ACTIVE</span>
+              </div>
+            </div>
           </div>
+          <a href="#about" className="scroll-hint" aria-label="Scroll down">scroll ↓</a>
         </section>
 
-        <Section id="about" label="About" title="Data for cleaner air and a resilient climate">
+        <Section id="about" n={1} title="about">
           <div className="about-grid">
-            <div className="prose">
+            <div className="prose reveal">
               {about.map((p, i) => <p key={i}>{p}</p>)}
             </div>
-            <ul className="stats">
-              {stats.map((s) => (
-                <li key={s.label}><strong>{s.value}</strong><span>{s.label}</span></li>
-              ))}
-            </ul>
+            <div className="terminal reveal">
+              <div className="terminal-bar">
+                <i /><i /><i /><span>profile.py</span>
+              </div>
+              <pre>
+<span className="c-key">class</span> <span className="c-fn">DataScientist</span>:{"\n"}
+{"    "}name = <span className="c-str">&quot;Prince Sant&quot;</span>{"\n"}
+{"    "}org = <span className="c-str">&quot;CEEW · Clean Air&quot;</span>{"\n"}
+{"    "}stack = [<span className="c-str">&quot;python&quot;</span>, <span className="c-str">&quot;xgboost&quot;</span>,{"\n"}
+{"             "}<span className="c-str">&quot;gee&quot;</span>, <span className="c-str">&quot;qgis&quot;</span>, <span className="c-str">&quot;power_bi&quot;</span>]{"\n"}
+{"    "}focus = {"{"}<span className="c-str">&quot;air_quality&quot;</span>, <span className="c-str">&quot;climate&quot;</span>, <span className="c-str">&quot;esg&quot;</span>{"}"}{"\n"}
+{"\n"}
+{"    "}<span className="c-key">def</span> <span className="c-fn">motto</span>(self):{"\n"}
+{"        "}<span className="c-key">return</span> <span className="c-str">&quot;Be water, my friend.&quot;</span>
+              </pre>
+            </div>
           </div>
+          <ul className="stats">
+            {stats.map((s) => (
+              <li key={s.label} className="reveal">
+                <Counter value={s.value} />
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
         </Section>
 
-        <Section id="experience" label="Experience" title="Where I've worked">
+        <Section id="experience" n={2} title="experience">
           <ol className="timeline">
             {experience.map((job) => (
-              <li key={job.title + job.date}>
+              <li key={job.title + job.date} className="reveal">
                 <div className="timeline-head">
-                  <h3>{job.title}</h3>
+                  <h3>{job.title} <span className="accent">@ {job.org}</span></h3>
                   <span className="date">{job.date}</span>
                 </div>
-                <p className="org">{job.org}</p>
                 <ul>{job.points.map((p) => <li key={p}>{p}</li>)}</ul>
               </li>
             ))}
           </ol>
         </Section>
 
-        <Section id="projects" label="Projects" title="Things I've built">
+        <Section id="projects" n={3} title="projects">
           <div className="cards">
-            {projects.map((p) => (
-              <article className="card" key={p.title}>
+            {projects.map((p, i) => (
+              <article className="card reveal" key={p.title}>
                 <div className="card-top">
-                  <span className="tag">{p.tag}</span>
+                  <span className="card-id">PRJ_0{i + 1}</span>
                   <span className="date">{p.date}</span>
                 </div>
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
+                <span className="tag">#{p.tag.toLowerCase().replace(/\s+/g, "_")}</span>
               </article>
             ))}
           </div>
         </Section>
 
-        <Section id="skills" label="Skills" title="What I work with">
+        <Section id="skills" n={4} title="tech stack">
           <div className="skills">
             {skills.map((g) => (
-              <div key={g.group}>
-                <h3>{g.group}</h3>
+              <div key={g.group} className="skill-group reveal">
+                <h3><span className="accent">$</span> {g.group}</h3>
                 <ul className="chips">{g.items.map((s) => <li key={s}>{s}</li>)}</ul>
               </div>
             ))}
           </div>
         </Section>
 
-        <Section id="education" label="Education" title="Learning">
+        <Section id="education" n={5} title="education">
           <div className="edu">
             {education.map((e) => (
-              <div className="edu-item" key={e.degree}>
+              <div className="edu-item reveal" key={e.degree}>
                 <span className="date">{e.date}</span>
                 <h3>{e.degree}</h3>
                 <p>{e.school}</p>
-                <p className="muted">{e.detail}</p>
+                <p className="metric">{e.detail}</p>
               </div>
             ))}
           </div>
           <div className="two-col">
-            <div>
-              <h3 className="sub">Certifications</h3>
+            <div className="reveal">
+              <h3 className="sub"><span className="accent">//</span> certifications</h3>
               <ul className="list">
                 {certifications.map((c) => (
-                  <li key={c.name}><strong>{c.name}</strong><span>{c.by}, {c.year}</span></li>
+                  <li key={c.name}><strong>{c.name}</strong><span>{c.by} · {c.year}</span></li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="sub">Leadership & achievements</h3>
+            <div className="reveal">
+              <h3 className="sub"><span className="accent">//</span> leadership &amp; wins</h3>
               <ul className="list bullets">
                 {leadership.map((l) => <li key={l}>{l}</li>)}
               </ul>
@@ -128,20 +172,25 @@ export default function Home() {
 
         <section id="contact" className="section contact">
           <div className="container">
-            <p className="eyebrow">Contact</p>
-            <h2>Let&apos;s talk</h2>
-            <p className="lead">Open to conversations on air quality, climate resilience, ESG and data-driven sustainability work.</p>
+            <h2 className="section-title reveal">
+              <span className="accent">06.</span> contact<span className="rule" />
+            </h2>
+            <p className="big reveal">Let&apos;s build something <span className="accent">data-driven.</span></p>
+            <p className="lead reveal">Open to roles and collaborations in data science, ML, geospatial analytics, air quality and climate.</p>
             <div className="contact-grid">
-              <a href={`mailto:${profile.email}`}><span>Email</span>{profile.email}</a>
-              <a href={`tel:${profile.phone.replace(/\s/g, "")}`}><span>Phone</span>{profile.phone}</a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer"><span>LinkedIn</span>prince-sant</a>
-              <a href={base + profile.cv} download><span>CV</span>Download PDF</a>
+              <a className="reveal" href={`mailto:${profile.email}`}><span>email</span>{profile.email}</a>
+              <a className="reveal" href={`tel:${profile.phone.replace(/\s/g, "")}`}><span>phone</span>{profile.phone}</a>
+              <a className="reveal" href={profile.linkedin} target="_blank" rel="noreferrer"><span>linkedin</span>prince-sant</a>
+              <a className="reveal" href={base + profile.cv} download><span>cv</span>download.pdf</a>
             </div>
           </div>
         </section>
       </main>
       <footer className="footer">
-        <div className="container">© {new Date().getFullYear()} {profile.name} · {profile.location}</div>
+        <div className="container">
+          <span>© {new Date().getFullYear()} {profile.name}</span>
+          <span className="accent">built with next.js · deployed on github pages</span>
+        </div>
       </footer>
     </>
   );

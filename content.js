@@ -2,10 +2,16 @@
 
 export const profile = {
   name: "Prince Sant",
-  role: "Consultant, Clean Air Team",
+  role: "Data Scientist · Consultant, Clean Air",
+  roles: [
+    "Data Scientist",
+    "ML Engineer for the Planet",
+    "Geospatial Analyst",
+    "Air Quality Modeller",
+  ],
   org: "Council on Energy, Environment and Water (CEEW)",
   tagline:
-    "Working where data science meets sustainability: using machine learning, geospatial analysis and policy research to tackle air pollution and climate change.",
+    "I build machine learning models and geospatial pipelines that turn satellite and sensor data into decisions for cleaner air and a more resilient climate.",
   location: "New Delhi, India",
   email: "psantpsm25@iifmbhopal.edu.in",
   phone: "+91 89231 86088",
@@ -16,13 +22,13 @@ export const profile = {
 };
 
 export const about = [
-  "I'm a Consultant with the Clean Air team at CEEW, where my work focuses on air quality management, particularly Construction and Demolition (C&D) waste management. Before this, I interned at CEEW, applying machine learning to bias-correct satellite air quality forecasts.",
-  "My training spans both worlds: a Post Graduate Diploma in Sustainability Management from IIFM Bhopal and a BS in Data Science and Applications from IIT Madras. I'm most interested in geospatial analysis, GIS and data-driven approaches for environmental decision-making.",
+  "I'm a data scientist working as a Consultant with the Clean Air team at CEEW, focused on air quality management and Construction & Demolition (C&D) waste. Before this, I interned at CEEW, training Random Forest, GBDT and XGBoost models to bias-correct satellite air quality forecasts.",
+  "I'm finishing a BS in Data Science and Applications at IIT Madras, and hold a PG Diploma in Sustainability Management from IIFM Bhopal. That mix lets me speak both languages: models and metrics, and the policy problems they need to solve.",
   "Outside work, I play badminton, volleyball and basketball, paint when I get the chance, and like exploring new technologies.",
 ];
 
 export const stats = [
-  { value: "2", label: "stints at CEEW" },
+  { value: "3", label: "ML models benchmarked for AQ bias correction" },
   { value: "7", label: "critical climate sectors mapped for UP" },
   { value: "2000+", label: "student responses to a program I launched" },
 ];
